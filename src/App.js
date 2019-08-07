@@ -104,19 +104,26 @@ function App() {
       <p>Current page: { discover.page }</p>
 
       <ul>
-      { discover.results.map( ( result, key ) => (
+      { discover.results.map( ( movie, key ) => (
         <li key={ key } style={{ marginBottom:'1em', display:'flex', alignItems:'center' }}>
-          <img
-            src={ configuration.images.base_url + configuration.images.poster_sizes[0] + result.poster_path }
-            alt={ 'Poster for ' + result.title }
-            style={{ marginRight:'1em' }}
-          />
+
+          <a href={ 'https://www.themoviedb.org/movie/' + movie.id }>
+            <img
+              src={ configuration.images.base_url + configuration.images.poster_sizes[0] + movie.poster_path }
+              alt={ 'Poster for ' + movie.title }
+              style={{ marginRight:'1em' }}
+            />
+          </a>
+
           <span>
-            <strong>{ result.title }</strong><br />
+            <strong><a href={ 'https://www.themoviedb.org/movie/' + movie.id }>
+              { movie.title }
+            </a></strong><br />
             <small>
-              Released: { result.release_date }
+              Released: { movie.release_date }
             </small>
           </span>
+
         </li>
       ) ) }
       </ul>
