@@ -64,6 +64,7 @@ export default function App() {
         return (
         <li key={ key } style={{ marginBottom:'1em', display:'flex', alignItems:'center' }}>
 
+          {/*
           <a href={ movieUrl }>
             <img
               src={ posterUrl }
@@ -71,6 +72,7 @@ export default function App() {
               style={{ marginRight:'1em' }}
             />
           </a>
+          */}
 
           <span>
             <strong><a href={ movieUrl }>
@@ -79,9 +81,9 @@ export default function App() {
             <small>
               Released: { movie.release_date }
             </small><br />
-            <small>
-              Crew: { movie.crew }
-            </small><br />
+            {/*
+            <small>{ movie.overview }</small><br />
+            */}
           </span>
 
           <div>
