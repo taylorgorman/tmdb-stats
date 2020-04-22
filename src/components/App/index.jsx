@@ -8,8 +8,7 @@ function App() {
 
   const context = useContext( Context )
 
-  return (
-  <div className="App">
+  return <div className="App">
 
     <h1>
       The Movie Database Stats
@@ -94,7 +93,6 @@ function App() {
     <p>English, US releases, not adult film, not video, runtime an hour or more.</p>
 
   </div>
-  )
 
 }
 
