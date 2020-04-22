@@ -35,7 +35,6 @@ function App() {
     </button>
     <button onClick={ ()=> context.setDiscoverOptions({
       sort_by: 'primary_release_date.desc',
-      'primary_release_date.lte': '2019-08-04'
     }) }>
       Release date
     </button>

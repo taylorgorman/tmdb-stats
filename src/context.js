@@ -40,6 +40,9 @@ export function Provider( props ) {
 
     setIsLoading( true )
 
+    const today = new Date()
+    const todayFormatted = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2,"0") + "-" + String(today.getDate()).padStart(2,"0")
+
     theMovieDb.discover.getMovies(
       {
         ...discoverOptions,
@@ -48,7 +51,9 @@ export function Provider( props ) {
         with_original_language: 'en',
         include_adult: false,
         include_video: false,
-        'with_runtime.gte': 60,
+        "with_runtime.gte": 60,
+        'primary_release_date.lte': todayFormatted,
+        primary_release_year: 2020,
       },
       response => {
         setMovies( JSON.parse( response ).results )
