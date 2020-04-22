@@ -4,7 +4,7 @@ import "./styles.scss"
 import Context from '../../Context'
 
 
-function App() {
+export default function App() {
 
   const context = useContext( Context )
 
@@ -102,5 +102,3 @@ function App() {
   </div>
 
 }
-
-export default App
