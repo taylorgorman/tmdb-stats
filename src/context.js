@@ -7,7 +7,7 @@ export default Context
 
 export function Provider( props ) {
 
-  theMovieDb.common.api_key = 'a02a9ab38b1a26fdfe1f08ff1baf9944'
+  theMovieDb.common.api_key = process.env.REACT_APP_TMDB_API_KEY
 
   const [isLoading, setIsLoading] = useState(false)
   const [configuration, setConfiguration] = useState()
