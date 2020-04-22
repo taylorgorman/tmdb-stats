@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom"
 
-import { Provider } from "./context"
+import { Provider } from "./Context"
 import App from "./components/App"
 
 
