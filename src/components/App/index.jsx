@@ -50,7 +50,9 @@ function App() {
       <ul>
       { context.movies.map( ( movie, key ) => {
 
-        const posterUrl = context.configuration.images.base_url + context.configuration.images.poster_sizes[0] + movie.poster_path
+        const posterUrl = context.configuration
+          ? context.configuration.images.base_url + context.configuration.images.poster_sizes[0] + movie.poster_path
+          : ""
         const movieUrl = 'https://www.themoviedb.org/movie/' + movie.id
 
         return (
