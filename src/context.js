@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react'
 import theMovieDb from 'themoviedb-javascript-library'
 
-import { doFetch } from "./utilities/hooks"
+import doFetch from "./utilities/doFetch"
 
 const Context = createContext()
 export default Context

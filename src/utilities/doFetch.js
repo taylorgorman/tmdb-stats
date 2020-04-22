@@ -1,5 +1,5 @@
 
-export function doFetch ( endpoint, method, data ) {
+export default function doFetch ( endpoint, method, data ) {
   let body
   if ( method === "GET" )
     endpoint = endpoint + "?" + Object.keys(data).map(key => key + '=' + data[key]).join('&')
