@@ -51,8 +51,7 @@ export function Provider( props ) {
         'with_runtime.gte': 60,
       },
       response => {
-        const json = JSON.parse( response )
-        setMovies( json.results )
+        setMovies( JSON.parse( response ).results )
         setIsLoading( false )
       },
       error => {
@@ -79,7 +78,6 @@ export function Provider( props ) {
         },
         response => {
           const json = JSON.parse( response )
-          console.log('json',json)
           setIsLoading( false )
         },
         error => {
