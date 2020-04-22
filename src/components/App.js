@@ -46,9 +46,6 @@ function App() {
     <h2>Results</h2>
     <div className="results">
 
-      <p>Total results: { context.moviesTotalCount }</p>
-      <p>Current page: { context.moviesCurrentPage }</p>
-
       <ul>
       { context.movies.map( ( movie, key ) => {
 
@@ -72,8 +69,14 @@ function App() {
             </a></strong><br />
             <small>
               Released: { movie.release_date }
-            </small>
+            </small><br />
+            <small>
+              Crew: { movie.crew }
+            </small><br />
           </span>
+
+          <div>
+          </div>
 
         </li>
         )

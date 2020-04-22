@@ -13,8 +13,6 @@ export function Provider( props ) {
   const [configuration, setConfiguration] = useState()
   const [discoverOptions, setDiscoverOptions] = useState({})
   const [movies, setMovies] = useState()
-  const [moviesTotalCount, setMoviesTotalCount] = useState()
-  const [moviesCurrentPage, setMoviesCurrentPage] = useState()
   const [errorMessage, setErrorMessage] = useState()
 
   // On load
@@ -29,8 +27,8 @@ export function Provider( props ) {
       },
       error => {
         console.error( error )
-        const errorJson = JSON.parse( error )
-        setErrorMessage( 'api.themoviedb.org ERROR ' + errorJson.status_code + ': ' + errorJson.status_message )
+        const json = JSON.parse( error )
+        setErrorMessage( 'api.themoviedb.org ERROR ' + json.status_code + ': ' + json.status_message )
         setIsLoading( false )
       }
     )
@@ -55,19 +53,45 @@ export function Provider( props ) {
       response => {
         const json = JSON.parse( response )
         setMovies( json.results )
-        setMoviesTotalCount( json.total_results )
-        setMoviesCurrentPage( json.page )
         setIsLoading( false )
       },
       error => {
         console.error( error )
-        const errorJson = JSON.parse( error )
-        setErrorMessage( 'api.themoviedb.org ERROR ' + errorJson.status_code + ': ' + errorJson.status_message )
+        const json = JSON.parse( error )
+        setErrorMessage( 'api.themoviedb.org ERROR ' + json.status_code + ': ' + json.status_message )
         setIsLoading( false )
       }
     )
 
   }, [discoverOptions] )
+
+  // Credits
+  useEffect( ()=>{
+
+    if ( ! movies ) return
+
+    setIsLoading( true )
+
+    movies.map( movie => {
+      theMovieDb.movies.getCredits(
+        {
+          id: movie.id
+        },
+        response => {
+          const json = JSON.parse( response )
+          console.log('json',json)
+          setIsLoading( false )
+        },
+        error => {
+          console.error( error )
+          const json = JSON.parse( error )
+          setErrorMessage( 'api.themoviedb.org ERROR ' + json.status_code + ': ' + json.status_message )
+          setIsLoading( false )
+        }
+      )
+    } )
+
+  }, [movies] )
 
   return (
 
@@ -76,8 +100,6 @@ export function Provider( props ) {
       errorMessage,
       configuration,
       movies,
-      moviesTotalCount,
-      moviesCurrentPage,
       setDiscoverOptions,
     }}>
       { props.children }
