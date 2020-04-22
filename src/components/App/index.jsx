@@ -11,11 +11,19 @@ function App() {
   return <div className="App">
 
     <h1>
-      The Movie Database Stats
+      Questions about movies
       { context.isLoading && (
         <small style={{ fontSize:'1rem' }}> Loading</small>
       ) }
     </h1>
+    <p>For the given years,</p>
+    <ul>
+      <li>How many women or men directed movies?</li>
+      <li>How many women or men directed Oscar-winning movies?</li>
+      <li>How many women or men comprised the crew of movies?</li>
+      <li>How many women or men comprised the cast of movies?</li>
+    </ul>
+    <p><small>As told by data from <a href="https://www.themoviedb.org/">The Movie Database</a>.</small></p>
 
     <p style={{ color:'red' }}>{ context.errorMessage }</p>
 
