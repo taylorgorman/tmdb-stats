@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Container, Alert } from "react-bootstrap"
 
 import "./styles.scss"
 import Context from '../../Context'
@@ -9,6 +10,7 @@ export default function App() {
   const context = useContext( Context )
 
   return <div className="App">
+  <Container>
 
     <h1>
       Questions about movies
@@ -25,74 +27,27 @@ export default function App() {
     </ul>
     <p><small>As told by data from <a href="https://www.themoviedb.org/">The Movie Database</a>.</small></p>
 
-    <p style={{ color:'red' }}>{ context.errorMessage }</p>
-
-    <h2>Sort by</h2>
-    <button onClick={ ()=> context.setDiscoverOptions({
-      sort_by: 'popularity.desc'
-    }) }>
-      Popularity
-    </button>
-    <button onClick={ ()=> context.setDiscoverOptions({
-      sort_by: 'primary_release_date.desc',
-    }) }>
-      Release date
-    </button>
-    <button onClick={ ()=> context.setDiscoverOptions({
-      sort_by: 'revenue.desc'
-    }) }>
-      Revenue
-    </button>
-    <button onClick={ ()=> context.setDiscoverOptions({
-      sort_by: 'vote_average.desc'
-    }) }>
-      Voting (um?)
-    </button>
+    { context.errorMessage && (
+      <Alert variant="danger">{ context.errorMessage }</Alert>
+    ) }
 
     { context.movies && ( <>
     <h2>Results</h2>
     <div className="results">
 
       <ul>
-      { context.movies.map( ( movie, key ) => {
+      { context.movies.map( ( movie, key ) => (
 
-        const posterUrl = context.configuration
-          ? context.configuration.images.base_url + context.configuration.images.poster_sizes[0] + movie.poster_path
-          : ""
-        const movieUrl = 'https://www.themoviedb.org/movie/' + movie.id
-
-        return (
-        <li key={ key } style={{ marginBottom:'1em', display:'flex', alignItems:'center' }}>
-
-          {/*
-          <a href={ movieUrl }>
-            <img
-              src={ posterUrl }
-              alt={ 'Poster for ' + movie.title }
-              style={{ marginRight:'1em' }}
-            />
-          </a>
-          */}
-
-          <span>
-            <strong><a href={ movieUrl }>
-              { movie.title }
-            </a></strong><br />
-            <small>
-              Released: { movie.release_date }
-            </small><br />
-            {/*
-            <small>{ movie.overview }</small><br />
-            */}
-          </span>
-
-          <div>
-          </div>
-
+        <li key={ key }>
+          <strong><a href={ `https://www.themoviedb.org/movie/${movie.id}` }>
+            { movie.title }
+          </a></strong><br />
+          <small>
+            Released: { movie.release_date }
+          </small>
         </li>
-        )
 
-      } ) }
+      ) ) }
       </ul>
 
     </div>
@@ -101,6 +56,7 @@ export default function App() {
     <h2>Assumptions</h2>
     <p>English, US releases, not adult film, not video, runtime an hour or more.</p>
 
+  </Container>
   </div>
 
 }
