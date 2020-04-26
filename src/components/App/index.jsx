@@ -35,20 +35,32 @@ export default function App() {
     <h2>Results</h2>
     <div className="results">
 
-      <ul>
-      { context.movies.map( ( movie, key ) => (
+      <ol>
+      { context.movies.map( ( movie, key ) => {
+        console.log('movie.cast',movie.cast)
+        return (
 
         <li key={ key }>
           <strong><a href={ `https://www.themoviedb.org/movie/${movie.id}` }>
             { movie.title }
           </a></strong><br />
-          <small>
-            Released: { movie.release_date }
-          </small>
+          <small>Released: { movie.release_date }</small><br />
+          <span>Cast</span>
+          <ol>
+          { movie.cast && movie.cast.map( ( member, key ) => (
+            <li key={ key }>{ member.name }</li>
+          ) ) }
+          </ol>
+          <span>Crew</span>
+          <ol>
+          { movie.crew && movie.crew.map( ( member, key ) => (
+            <li key={ key }>{ member.name }</li>
+          ) ) }
+          </ol>
         </li>
 
-      ) ) }
-      </ul>
+      ) } ) }
+      </ol>
 
     </div>
     </> ) }

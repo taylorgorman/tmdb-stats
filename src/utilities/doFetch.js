@@ -6,6 +6,6 @@ export default function doFetch ( endpoint, method, data ) {
   else
     body = JSON.stringify(data)
   return fetch( endpoint, { method, body } )
-    .then( async resp => [await resp.json(), {status:resp.status, message:resp.statusText}] )
+    .then( async resp => [await resp.json(), null] )
     .catch( error => [null, error] )
 }

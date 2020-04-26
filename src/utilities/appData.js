@@ -7,7 +7,7 @@ async function fetchTmdb( endpoint, data ) {
     "GET",
     data
   )
-  return [resp.results, err || resp.status_message]
+  return [resp, err]
 
 }
 
@@ -20,7 +20,8 @@ export default async () => {
     + "-"
     + String( today.getDate() ).padStart( 2, "0" )
 
-  let [movies, error] = await fetchTmdb ( "/discover/movie", {
+  // Get movies
+  let [response, error] = await fetchTmdb ( "/discover/movie", {
     "api_key": process.env.REACT_APP_TMDB_API_KEY,
     region: "US",
     language: "en-US",
@@ -30,9 +31,32 @@ export default async () => {
     "with_runtime.gte": 60,
     "primary_release_date.lte": todayFormatted,
     primary_release_year: 2020,
+    "append_to_response": "people"
   } )
-
   if ( error ) return { error }
+  let movies = response.results
+
+  // Get people
+  movies.map( async movie => {
+
+    let [credits, error] = await fetchTmdb ( `/movie/${movie.id}/credits`, {
+      "api_key": process.env.REACT_APP_TMDB_API_KEY,
+      region: "US",
+      language: "en-US",
+      with_original_language: "en",
+      include_adult: false,
+      include_video: false,
+      "with_runtime.gte": 60,
+      "primary_release_date.lte": todayFormatted,
+      primary_release_year: 2020,
+      "append_to_response": "people"
+    } )
+    if ( error ) return { error }
+    movie.cast = credits.cast
+    movie.crew = credits.crew
+    return movie
+
+  } )
 
   return {
     movies
