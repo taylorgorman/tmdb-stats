@@ -7,17 +7,23 @@ import Context from '../../Context'
 
 export default function App() {
 
-  const context = useContext( Context )
+  const {
+    isLoading,
+    errorMessage,
+    movies,
+    fetchTmdbData,
+  } = useContext( Context )
 
   return <div className="App">
   <Container>
 
     <h1>
       Questions about movies
-      { context.isLoading && (
+      { isLoading && (
         <small style={{ fontSize:'1rem' }}> Loading</small>
       ) }
     </h1>
+    <p><button onClick={ fetchTmdbData }>Refresh data</button></p>
     <p>For the given years,</p>
     <ul>
       <li>How many women or men directed movies?</li>
@@ -27,16 +33,16 @@ export default function App() {
     </ul>
     <p><small>As told by data from <a href="https://www.themoviedb.org/">The Movie Database</a>.</small></p>
 
-    { context.errorMessage && (
-      <Alert variant="danger">{ context.errorMessage }</Alert>
+    { errorMessage && (
+      <Alert variant="danger">{ errorMessage }</Alert>
     ) }
 
-    { context.movies && ( <>
+    { movies && ( <>
     <h2>Results</h2>
     <div className="results">
 
       <ol>
-      { context.movies.map( ( movie, key ) => {
+      { movies.map( ( movie, key ) => {
         console.log('movie.cast',movie.cast)
         return (
 

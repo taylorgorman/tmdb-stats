@@ -13,6 +13,7 @@ async function fetchTmdb( endpoint, data ) {
 
 export default async () => {
 
+  // Today's date
   const today = new Date()
   const todayFormatted = today.getFullYear()
     + "-"
@@ -21,7 +22,7 @@ export default async () => {
     + String( today.getDate() ).padStart( 2, "0" )
 
   // Get movies
-  let [response, error] = await fetchTmdb ( "/discover/movie", {
+  let [response, error] = await fetchTmdb( "/discover/movie", {
     "api_key": process.env.REACT_APP_TMDB_API_KEY,
     region: "US",
     language: "en-US",
@@ -36,10 +37,10 @@ export default async () => {
   if ( error ) return { error }
   let movies = response.results
 
-  // Get people
-  movies.map( async movie => {
+  // Get cast and crew
+  movies = await Promise.all( movies.map( async movie => {
 
-    let [credits, error] = await fetchTmdb ( `/movie/${movie.id}/credits`, {
+    let [credits, error] = await fetchTmdb( `/movie/${movie.id}/credits`, {
       "api_key": process.env.REACT_APP_TMDB_API_KEY,
       region: "US",
       language: "en-US",
@@ -56,7 +57,7 @@ export default async () => {
     movie.crew = credits.crew
     return movie
 
-  } )
+  } ) )
 
   return {
     movies

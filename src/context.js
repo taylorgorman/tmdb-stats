@@ -12,11 +12,13 @@ export function Provider( props ) {
 
   theMovieDb.common.api_key = process.env.REACT_APP_TMDB_API_KEY
 
-  const [isLoading, setIsLoading] = useState(true)
-  const [movies, setMovies] = useLocalStorage("movies", null)
+  const [isLoading, setIsLoading] = useState( false )
+  const [movies, setMovies] = useLocalStorage( "movies", null )
+  //const [movies, setMovies] = useState(null)
   const [errorMessage, setErrorMessage] = useState()
 
-  useEffect( ()=>{
+  function fetchTmdbData() {
+
     setIsLoading( true )
     const doAsync = async () => {
 
@@ -34,7 +36,12 @@ export function Provider( props ) {
       setIsLoading( false )
 
     }
-    if ( ! movies ) doAsync()
+    doAsync()
+
+  }
+
+  useEffect( ()=>{
+    if ( ! movies ) fetchTmdbData()
   }, [] )
 
   return (
@@ -43,6 +50,7 @@ export function Provider( props ) {
       isLoading,
       errorMessage,
       movies,
+      fetchTmdbData,
     }}>
       { props.children }
     </Context.Provider>
