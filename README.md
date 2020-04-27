@@ -42,6 +42,7 @@ useLocalDatabase( key, fetchCallback ) {
     fetchCallback,
     value => getLocalDatabase( key, value ),
     value => setLocalDatabase( key, value ),
+    value => delLocalDatabase( key, value ),
     3600
   )
   
@@ -49,7 +50,7 @@ useLocalDatabase( key, fetchCallback ) {
   
 }
 
-useCache( key, fetch, read, write, expire = false ) {
+useCache( key, fetch, read, write, delete, expSeconds = false ) {
   
   state in here somewhere
   
