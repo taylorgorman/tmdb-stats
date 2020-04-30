@@ -1,12 +1,14 @@
-@import "./variables";
-@import "~bootstrap/scss/bootstrap-reboot";
+@import '../../styles/start';
 
-@import '~bootstrap/scss/type';
-@import '~bootstrap/scss/grid';
-@import '~bootstrap/scss/buttons';
-@import '~bootstrap/scss/forms';
-@import '~bootstrap/scss/nav';
-@import '~bootstrap/scss/navbar';
-@import '~bootstrap/scss/alert';
+.stat {
+  padding: $spacer 0;
 
-@import '~bootstrap/scss/utilities';
+  h2 {
+    text-align: center;
+    margin-right: calc(10% + 5rem);
+  }
+
+  @include media-breakpoint-up(md) {
+    padding: 0 $spacer;
+  }
+}

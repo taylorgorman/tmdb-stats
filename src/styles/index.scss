@@ -1,0 +1,27 @@
+@import './start';
+
+@import '~bootstrap/scss/type';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/nav';
+@import '~bootstrap/scss/navbar';
+@import '~bootstrap/scss/alert';
+
+@import '~bootstrap/scss/utilities';
+
+body {
+  padding: 0 0 $spacer;
+}
+section,
+header.hero,
+footer.site-footer {
+  padding: $spacer 0;
+}
+section,
+header.hero {
+  background: $white;
+}
+header.hero {
+  padding-bottom: 1px;
+}
