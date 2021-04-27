@@ -160,7 +160,7 @@ function getDataFromMovies( movies ) {
     castTotal = 0, castGenders = {},
     crewTotal = 0, crewGenders = {}
 
-  movies.forEach( movie => {
+  movies?.forEach( movie => {
 
     castTotal = castTotal + movie.cast.length
     crewTotal = crewTotal + movie.crew.length
